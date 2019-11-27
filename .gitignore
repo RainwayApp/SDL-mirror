@@ -15,3 +15,8 @@ VisualC/.vs/SDL/v15/.suo
 *.tlog
 *.res
 .DS_Store
+lib_debug/
+lib_release/
+lib_latest/
+obj_release/
+obj_debug/
