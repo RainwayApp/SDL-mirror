@@ -1,2 +1,4 @@
 Xcode-iOS/SDL/SDL.xcodeproj/xcuserdata/
 Xcode-iOS/SDL/build/
+lib_release/
+obj_release/
