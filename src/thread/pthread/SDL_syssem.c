@@ -101,6 +101,11 @@ SDL_SemWait(SDL_sem * sem)
     return retval;
 }
 
+#ifdef __ANDROID__
+// Android has this so... wtf?
+#define HAVE_SEM_TIMEDWAIT
+#endif
+
 int
 SDL_SemWaitTimeout(SDL_sem * sem, Uint32 timeout)
 {

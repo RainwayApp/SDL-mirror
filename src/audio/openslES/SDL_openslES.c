@@ -523,13 +523,22 @@ openslES_CloseDevice(_THIS)
 static void
 openslES_WaitDevice(_THIS)
 {
+    const Uint32 timeout_ms = 500;
     struct SDL_PrivateAudioData *audiodata = (struct SDL_PrivateAudioData *) this->hidden;
 
     LOGV("openslES_WaitDevice( )");
 
     /* Wait for an audio chunk to finish */
     /* WaitForSingleObject(this->hidden->audio_sem, INFINITE); */
-    SDL_SemWait(audiodata->playsem);
+    do {
+        /* Seem to be getting deadlocked on this semaphore when shutting down, so do timed wait to check shutdown */
+        int wait_result = SDL_SemWaitTimeout(audiodata->playsem, timeout_ms);
+        /* If the wait succeeds before the timeout period or if there is an error then break out */
+        if (wait_result == 0 || wait_result == -1) {
+            break;
+        }
+        /* Otherwise check if we need to shutdown and if not then just go back to waiting */
+    } while (!SDL_AtomicGet(&this->shutdown));
 
     return;
 }
