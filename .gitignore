@@ -2,6 +2,11 @@ Xcode-iOS/SDL/SDL.xcodeproj/xcuserdata/
 Xcode-iOS/SDL/build/
 lib_debug/
 lib_release/
-lib_latest/
+lib_latest
 obj_release/
 obj_debug/
+
+*.DS_Store
+android-project/.gradle/
+android-project/.project
+android-project/.settings/
